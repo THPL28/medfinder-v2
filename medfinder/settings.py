@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-^%r4wlor@e83zh@mowch(1ewmg16lgn*rr%tw@*gq0a$t9eji5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['medfinder-04ct.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
