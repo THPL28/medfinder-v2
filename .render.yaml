@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: medfinder
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn medfinder.wsgi
+    plan: free
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: medfinder.settings
+      - key: SECRET_KEY
+        generateValue: true
