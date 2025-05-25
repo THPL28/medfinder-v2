@@ -1,5 +1,6 @@
 import logging
 import os
+from .forms import CustomUserCreationForm
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Envie Receita{% endblock %}
+
+{% block content %}
+<div class="upload-card card">
+  <h2>Envie Receita</h2>
+  <form method="post" enctype="multipart/form-data" id="upload-form">
+    {% csrf_token %}
+    <div class="upload-box">
+      <label for="id_pdf">
+        <i class="fa fa-cloud-upload-alt"></i>
+        <p class="mt-2">Clique para selecionar o arquivo PDF</p>
+      </label>
+      {{ form.pdf }}
+    </div>
+    <button type="submit" id="upload-button">
+      <span class="btn-text">Enviar</span>
+      <span class="custom-spinner d-none" aria-hidden="true"></span>
+
+    </button>
+  </form>
+</div>
+
+<!-- Spinner Script -->
+<script>
+  const form = document.getElementById('upload-form');
+  const button = document.getElementById('upload-button');
+  const btnText = button.querySelector('.btn-text');
+  const spinner = button.querySelector('.spinner-border');
+
+  form.addEventListener('submit', () => {
+    button.disabled = true;
+    btnText.textContent = "Enviando...";
+    spinner.classList.remove('d-none');
+  });
+</script>
+{% endblock %}

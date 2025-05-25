@@ -1,0 +1,40 @@
+{% extends 'base_no_main.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+        <div class="text-center mb-4">
+          <img src="{% static 'img/solicitando-receita.png' %}" alt="Logo Med Finder" width="100%" class="mx-auto d-block">
+
+        </div>
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Usuário</label>
+                <input type="text" name="username" class="form-control" id="id_username" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Senha</label>
+                <input type="password" name="password" class="form-control" id="id_password" required>
+            </div>
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Erro:</strong> Usuário ou senha inválidos.
+            </div>
+            {% endif %}
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+        </form>
+        <p class="text-center mt-3 mb-0">Não tem conta? <a href="{% url 'register' %}">Cadastre-se aqui</a></p>
+    </div>
+</div>
+{% endblock %}

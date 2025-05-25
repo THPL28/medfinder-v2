@@ -2,11 +2,17 @@ services:
   - type: web
     name: medfinder
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn medfinder.wsgi
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    startCommand: gunicorn medfinder.wsgi --log-file -
     plan: free
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: medfinder.settings
       - key: SECRET_KEY
         generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "medfinder.onrender.com"
+      - key: DATABASE_URL
+        value: "postgres://medfinder_ny93_user:AEg8l4ozPSrBE5Fx9wMuNQbMIOv7dLUu@dpg-d0om528dl3ps73a461ag-a.oregon-postgres.render.com:5432/medfinder_ny93"

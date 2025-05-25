@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Med Finder{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+
+<body class="bg-light">
+
+    <!-- NAVBAR FIXA HORIZONTAL -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'img/logo-medfinder.png' %}" alt="Logo" width="150">
+            </a>
+            {% if user.is_authenticated %}
+            <div class="collapse navbar-collapse show" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'inicio' %}">
+                            <i class="fas fa-home"></i> Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'upload_receita' %}">
+                            <i class="fas fa-upload"></i> Enviar Receita
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'historico_receitas' %}">
+                            <i class="fas fa-history"></i> Histórico
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-light" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Sair
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- BLOCO DE CONTEÚDO -->
+    {% block content %}
+    <!-- HERO (principal bloco de boas-vindas) -->
+    <section class="bg-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Bem-vindo ao <span class="text-primary">Med Finder</span></h1>
+            <p class="lead mb-4">A forma mais inteligente de buscar seus medicamentos.</p>
+            <a href="#servicos" class="btn btn-primary btn-lg">
+                <i class="fas fa-stethoscope"></i> Conheça nossos serviços
+            </a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE SERVIÇOS -->
+    <section id="servicos" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 text-primary">Nossos Serviços</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow service-card animate-on-scroll">
+                        <div class="card-body">
+                            <i class="fas fa-file-medical fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Envio de Receita</h5>
+                            <p class="card-text">Faça upload da sua receita de forma segura e rápida.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow service-card animate-on-scroll">
+                        <div class="card-body">
+                            <i class="fas fa-pills fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">Busca de Medicamentos</h5>
+                            <p class="card-text">Encontramos os medicamentos indicados na sua região.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow service-card animate-on-scroll">
+                        <div class="card-body">
+                            <i class="fas fa-history fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">Histórico</h5>
+                            <p class="card-text">Consulte suas receitas e medicamentos sempre que precisar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+
+    <!-- RODAPÉ -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Med Finder. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Animação ao rolar -->
+    <script>
+        const elements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        elements.forEach(el => observer.observe(el));
+    </script>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</body>
+
+</html>

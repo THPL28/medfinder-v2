@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Resultado{% endblock %}
+{% block content %}
+<div class="card table-container">
+  <h2>Medicamentos Encontrados</h2>
+  <table>
+    <thead>
+      <tr><th>Nome</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for med in medicamentos_encontrados %}
+      <tr>
+        <td>{{ med.nome }}</td>
+        <td><i class="fa fa-check-circle"></i></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="2">Nenhum medicamento identificado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
